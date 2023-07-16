@@ -3,10 +3,11 @@ import { useNavigate, redirect, useParams, useSearchParams } from "react-router-
 import { request } from 'graphql-request';
 
 const Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(false);
-  const [isCorrectAnswer, setCorrectAnswer ] = useState(null);
+  const [ currentQuestion, setCurrentQuestion]  = useState(0);
+  const [ score, setScore ] = useState(0);
+  const [ isAnswered, setIsAnswered ] = useState(false);
+  const [ isCorrectAnswer, setCorrectAnswer ] = useState(null);
+  const [ answers, setAnswers ] = useState("");
   const [ quizData, setQuizData ] = useState([]);
   const lengthQuiz = quizData?.length - 1
   const { classroom } = useParams();
@@ -23,6 +24,7 @@ const Quiz = () => {
         setCorrectAnswer(false);
       }
       setIsAnswered(true);
+      setAnswers(`${answers}&${answer}`);
     }
   };
 
@@ -51,6 +53,10 @@ const Quiz = () => {
     };
 
     fetchQuizzes();
+    const query_answers = query.get("answers");
+    if (query_answers) {
+      setAnswers(atob(query_answers))
+    }
   }, []);
 
   if (!quizData.length) {
@@ -89,7 +95,7 @@ const Quiz = () => {
         {
           isCorrectAnswer && currentQuestion === lengthQuiz && (
             <button  style={{marginTop: "5%"}} onClick={
-              () => navigate(`/reward?email=${email}&score=${score}&=classroom=${classroom}`)}>
+              () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
               Receber minha recompensa!
             </button>
           )
