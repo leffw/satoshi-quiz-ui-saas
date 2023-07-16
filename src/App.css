@@ -1,0 +1,14 @@
+body {
+  background-color: #371272;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h2, h3, p {
+  color: white;
+}
