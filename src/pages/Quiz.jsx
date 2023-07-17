@@ -5,7 +5,7 @@ import { request } from 'graphql-request';
 const Quiz = () => {
   const [ currentQuestion, setCurrentQuestion]  = useState(0);
   const [ score, setScore ] = useState(0);
-  const [ isAnswered, setIsAnswered ] = useState(false);
+  const [ isAnswered, setIsAnswered ] = useState(null);
   const [ isCorrectAnswer, setCorrectAnswer ] = useState(null);
   const [ answers, setAnswers ] = useState("");
   const [ quizData, setQuizData ] = useState([]);
@@ -31,7 +31,7 @@ const Quiz = () => {
   const handleNextQuestion = () => {
     if (currentQuestion < quizData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setIsAnswered(false);
+      setIsAnswered(null);
     }
   };
 
@@ -101,7 +101,7 @@ const Quiz = () => {
           )
         }
         {
-          isCorrectAnswer === false && currentQuestion === lengthQuiz && (
+          isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
             <button  style={{marginTop: "5%"}}>
               Refazer o Quiz Novamente!
             </button>
