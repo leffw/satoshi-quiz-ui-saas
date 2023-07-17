@@ -5,7 +5,7 @@ import { request } from 'graphql-request';
 import axios from 'axios';
 
 const RewardScreen = () => {
-  const [ lnurl, setLnurl ] = useState("lightning:LNURL");
+  const [ lnurl, setLnurl ] = useState(null);
   const [ redirectURL, setRedirectURL ] = useState();
   const query = useSearchParams()[0]
   const score = query.get("score")
@@ -43,6 +43,14 @@ const RewardScreen = () => {
     fetchClassroom();
     createReward();
   }, []);
+  
+  if (!lnurl) {
+    return (
+      <div>
+        <h2> #OPT-OUT</h2>
+      </div>
+    )
+  }
 
   return (
     <div style={{
