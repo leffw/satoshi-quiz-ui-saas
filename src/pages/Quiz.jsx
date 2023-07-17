@@ -102,7 +102,9 @@ const Quiz = () => {
         }
         {
           isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
-            <button  style={{marginTop: "5%"}}>
+            <button  style={{marginTop: "5%"}} onClick={() => {
+              window.open(location.toString(), "_self")
+            }}>
               Refazer o Quiz Novamente!
             </button>
           )
