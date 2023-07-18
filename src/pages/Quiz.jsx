@@ -13,7 +13,7 @@ const Quiz = () => {
   const { classroom } = useParams();
   const navigate = useNavigate();
   const query = useSearchParams()[0]
-  const email = query.get("email")
+  const user = query.get("user")
 
   const handleAnswer = (answer) => {
     if (!isAnswered) {
@@ -92,15 +92,15 @@ const Quiz = () => {
       </div>
       <br />
       {
-        isAnswered && isCorrectAnswer && currentQuestion === lengthQuiz && (
+        isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
           <button onClick={
-            () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
+            () => navigate(`/reward?user=${user}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
             Receber minha recompensa!
           </button>
         )
       }
       {
-        isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
+        score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
           <button onClick={() => {
             window.open(location.toString(), "_self")
           }}>

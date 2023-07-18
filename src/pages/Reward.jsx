@@ -9,7 +9,7 @@ const RewardScreen = () => {
   const [ redirectURL, setRedirectURL ] = useState();
   const query = useSearchParams()[0]
   const score = query.get("score")
-  const email = query.get("email")
+  const user = query.get("user")
   const answers = query.get("answers")
   const classroom = query.get("classroom")
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ const RewardScreen = () => {
     };
     const createReward = async () => {
       const data = { answers: answers }
-      const headers = { "X-EMAIL": email }
+      const headers = { "X-USER-ID": user }
       
       axios.post(import.meta.env.VITE_SATOSHI_URL + `/api/v1/reward/${classroom}`, data, { headers: headers })
       .then((response) => {
