@@ -34,7 +34,7 @@ const RewardScreen = () => {
       
       axios.post(import.meta.env.VITE_SATOSHI_URL + `/api/v1/reward/${classroom}`, data, { headers: headers })
       .then((response) => {
-        setLnurl(response.data.lnurl);
+        setLnurl("lightning:" + response.data.lnurl);
       })
       .catch((error) => {
         console.error('Error:', error);
