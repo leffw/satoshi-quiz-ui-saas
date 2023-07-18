@@ -92,7 +92,7 @@ const Quiz = () => {
       </div>
       <br />
       {
-        isCorrectAnswer && currentQuestion === lengthQuiz && (
+        isAnswered && isCorrectAnswer && currentQuestion === lengthQuiz && (
           <button onClick={
             () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
             Receber minha recompensa!
