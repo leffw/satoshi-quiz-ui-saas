@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, redirect, useParams, useSearchParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { request } from 'graphql-request';
 
 const Quiz = () => {
@@ -68,56 +68,54 @@ const Quiz = () => {
   }
 
   return (
-    <div>
-      <div>
-        <h2>{quizData[currentQuestion].question}</h2>
-        <div style={{display: "flex"}}>
-          {quizData[currentQuestion].options.split("\n").map((option, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(option)}
-              style={{
-                backgroundColor: isAnswered
-                  ? option === quizData[currentQuestion].correctAnswer
-                    ? '#0B3915'
-                    : '#9C3A1D'
-                  : 'initial',
-                marginRight: "3%",
-                color: "white",
-                borderColor: "white",
-              }}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-        <br />
-        {
-          isCorrectAnswer && currentQuestion === lengthQuiz && (
-            <button  style={{marginTop: "5%"}} onClick={
-              () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
-              Receber minha recompensa!
-            </button>
-          )
-        }
-        {
-          isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
-            <button  style={{marginTop: "5%"}} onClick={() => {
-              window.open(location.toString(), "_self")
-            }}>
-              Refazer o Quiz Novamente!
-            </button>
-          )
-        }
-        {
-          isAnswered && currentQuestion !== lengthQuiz && (
-            <button  style={{marginTop: "5%"}} onClick={handleNextQuestion}>
-              Próxima Pergunta
-            </button>
-          )
-        }
-        <p>Pontuação: { score }</p>
+    <div className="quiz-container">
+      <h2>{quizData[currentQuestion].question}</h2>
+      <div className="options-container">
+        {quizData[currentQuestion].options.split("\n").map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleAnswer(option)}
+            className="option-button"
+            style={{
+              backgroundColor: isAnswered
+                ? option === quizData[currentQuestion].correctAnswer
+                  ? '#38A169'
+                  : '#B71C1C'
+                : 'initial',
+              color: "white",
+              borderColor: "white",
+            }}
+          >
+            {option}
+          </button>
+        ))}
       </div>
+      <br />
+      {
+        isCorrectAnswer && currentQuestion === lengthQuiz && (
+          <button onClick={
+            () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
+            Receber minha recompensa!
+          </button>
+        )
+      }
+      {
+        isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
+          <button onClick={() => {
+            window.open(location.toString(), "_self")
+          }}>
+            Refazer o Quiz Novamente!
+          </button>
+        )
+      }
+      {
+        isAnswered && currentQuestion !== lengthQuiz && (
+          <button onClick={handleNextQuestion}>
+            Próxima Pergunta
+          </button>
+        )
+      }
+      <p>Pontuação: { score }</p>
     </div>
   );
 };

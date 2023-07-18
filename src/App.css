@@ -12,3 +12,38 @@ body {
 h2, h3, p {
   color: white;
 }
+
+.quiz-container {
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option-button {
+  flex-basis: 48%;
+  padding: 10px;
+  border: 1px solid white;
+  background-color: initial;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.option-button:hover {
+  background-color: #38A169;
+}
+
+.option-button.correct {
+  background-color: #38A169;
+}
+
+.option-button.incorrect {
+  background-color: #B71C1C;
+}

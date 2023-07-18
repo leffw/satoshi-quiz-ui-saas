@@ -61,14 +61,16 @@ const RewardScreen = () => {
       }}
     >
       <h3> Pontos: {score}</h3>
-      <QRCode 
-        value={lnurl} 
-        size={256} 
-        viewBox={`0 0 256 256`}
-        bgColor='#371272' 
-        fgColor='white'
-        href={lnurl}
-      />
+      <a href={lnurl}>
+        <QRCode 
+          value={lnurl} 
+          size={256} 
+          viewBox={`0 0 256 256`}
+          bgColor='#371272' 
+          fgColor='white'
+        />
+      </a>
+
       <p style={{width: "50%"}}>
         Escaneie O QRCode com sua 
         Carteira Lightning para receber 
