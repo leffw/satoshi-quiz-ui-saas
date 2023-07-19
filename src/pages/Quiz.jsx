@@ -69,6 +69,7 @@ const Quiz = () => {
 
   return (
     <div className="quiz-container">
+      <img src="../../public/logo.png" />
       <h2>{quizData[currentQuestion].question}</h2>
       <div className="options-container">
         {quizData[currentQuestion].options.split("\n").map((option, index) => (
@@ -79,8 +80,8 @@ const Quiz = () => {
             style={{
               backgroundColor: isAnswered
                 ? option === quizData[currentQuestion].correctAnswer
-                  ? '#38A169'
-                  : '#B71C1C'
+                  ? '#6900FF'
+                  : '#FE5900'
                 : 'initial',
               color: "white",
               borderColor: "white",
