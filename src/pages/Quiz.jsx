@@ -69,7 +69,7 @@ const Quiz = () => {
 
   return (
     <div className="quiz-container">
-      <img src="../../public/logo.png" />
+      <img src="../assets/logo.png" />
       <h2>{quizData[currentQuestion].question}</h2>
       <div className="options-container">
         {quizData[currentQuestion].options.split("\n").map((option, index) => (
