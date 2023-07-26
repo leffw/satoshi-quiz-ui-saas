@@ -47,3 +47,44 @@ h2, h3, p {
 .option-button.incorrect {
   background-color: #B71C1C;
 }
+
+.add-button {
+  width: 105%;
+  background-color: #5a67d8;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+  background-color: #4a56bd;
+}
+
+.add-button:active {
+  transform: scale(0.95);
+}
+
+.next-button {
+  width: 105%;
+  margin-top: 5%;
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.next-button:hover {
+  background-color: #45a049;
+}
+
+.next-button:active {
+  transform: scale(0.95);
+}

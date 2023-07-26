@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from "react-router-dom"
-import { request } from 'graphql-request';
+import Backend from "../lib/backend";
 
 const Quiz = () => {
   const [ currentQuestion, setCurrentQuestion]  = useState(0);
   const [ score, setScore ] = useState(0);
   const [ isAnswered, setIsAnswered ] = useState(null);
   const [ isCorrectAnswer, setCorrectAnswer ] = useState(null);
+  const [ answer, setAnswer ] = useState("");
   const [ answers, setAnswers ] = useState("");
   const [ quizData, setQuizData ] = useState([]);
   const lengthQuiz = quizData?.length - 1
-  const { classroom } = useParams();
+  const { id } = useParams();
+  const backend = new Backend()
+
   const navigate = useNavigate();
   const query = useSearchParams()[0]
-  const user = query.get("user")
+  const email = query.get("email")
 
   const handleAnswer = (answer) => {
     if (!isAnswered) {
-      if (answer === quizData[currentQuestion].correctAnswer) {
+      if (answer === quizData[currentQuestion].answer) {
         setScore(score + 1);
         setCorrectAnswer(true);
       } else {
         setCorrectAnswer(false);
       }
+      setAnswer(answer)
       setIsAnswered(true);
       setAnswers(`${answers}&${answer}`);
     }
@@ -36,27 +40,9 @@ const Quiz = () => {
   };
 
   useEffect(() => {
-    const fetchQuizzes = async () => {
-      const { quizzes } = await request(
-        import.meta.env.VITE_CMS_URL,
-        `
-        {
-          quizzes(where: {classroom: "${classroom}"}){
-            correctAnswer
-            question
-            options
-          }
-        }
-      `
-      );
-      setQuizData(quizzes);
-    };
-
-    fetchQuizzes();
-    const query_answers = query.get("answers");
-    if (query_answers) {
-      setAnswers(atob(query_answers))
-    }
+    backend.getQuiz(id).then((data) =>{
+      setQuizData(data.data);
+    })
   }, []);
 
   if (!quizData.length) {
@@ -71,19 +57,20 @@ const Quiz = () => {
     <div className="quiz-container">
       <h2>{quizData[currentQuestion].question}</h2>
       <div className="options-container">
-        {quizData[currentQuestion].options.split("\n").map((option, index) => (
+        {quizData[currentQuestion].options.split("|").map((option, index) => (
           <button
             key={index}
             onClick={() => handleAnswer(option)}
             className="option-button"
             style={{
               backgroundColor: isAnswered
-                ? option === quizData[currentQuestion].correctAnswer
+                ? option === quizData[currentQuestion].answer
                   ? '#6900FF'
                   : '#FE5900'
                 : 'initial',
               color: "white",
               borderColor: "white",
+              width: 350
             }}
           >
             {option}
@@ -92,9 +79,14 @@ const Quiz = () => {
       </div>
       <br />
       {
+        isAnswered && answer !== quizData[currentQuestion].answer && (
+          <p>A resposta correta é {quizData[currentQuestion].answer}!</p>
+        )
+      }
+      {
         isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
           <button onClick={
-            () => navigate(`/reward?user=${user}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
+            () => navigate(`/reward?email=${email}&answers=${btoa(answers)}&score=${score}&classroom=${classroom}`)}>
             Receber minha recompensa!
           </button>
         )
