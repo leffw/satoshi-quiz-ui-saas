@@ -43,7 +43,7 @@ function App() {
           <MemberStack />
         </ProtectedRoute>
       } />
-      <Route path="/reward" exact element={<Reward />} />
+      <Route path="/:id/reward" exact element={<Reward />} />
       <Route path="/login" exact element={<Login />} />
       <Route path="/signup" exact element={<Signup />} />
     </Routes>

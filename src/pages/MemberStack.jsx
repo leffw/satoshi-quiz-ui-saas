@@ -52,14 +52,13 @@ const MemberStack = () => {
         onChange={(e) => setMemberStackAPIKey(e.target.value)}
       />
       <button onClick={handleMemberStack} disabled={memberStackAPIKey.length < 6}>
-        Save and Continue
+        Salvar e continuar
       </button>
       <button 
         onClick={() => navigate("/")} 
-        disabled={memberStackAPIKey.length < 6}
         style={{ backgroundColor: "transparent" }}
       >
-        Skip
+        Pular
       </button>
     </div>
   );

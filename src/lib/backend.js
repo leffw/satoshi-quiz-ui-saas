@@ -51,4 +51,9 @@ export default class BackendAPI {
     deleteQuiz(id) {
         return this.call("DELETE", `/api/v1/quiz/${id}`, {});
     }
+
+    createReward(id, user, answers) {
+        return this.call("POST", `/api/v1/reward/${id}`, {
+            user: user, answers: answers })
+    }
 }

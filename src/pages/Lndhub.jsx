@@ -88,7 +88,7 @@ const SetupLndhub = () => {
         onChange={(e) => setLndhubPassword(e.target.value)}
       />
       <button onClick={handleLndhub} disabled={!isFormValid()}>
-        Save and Continue
+        Salvar e continuar
       </button>
     </div>
   );

@@ -40,6 +40,7 @@ const Login = () => {
         });
       })
       .catch((error) => {
+        setLoading(false);
         alert('Error logging in. Check your email and password.');
       });
   };
@@ -60,7 +61,7 @@ const Login = () => {
       width: 350,
       justifyContent: "flex-start"
     }}>
-      <h2>Login</h2>
+      <h2>Entrar</h2>
       <label style={{ alignSelf: "flex-start" }}>* Email:</label>
       <input
         type="email"
@@ -74,10 +75,10 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin} disabled={!isValidEmail(email) || !isValidPassword(password)}>
-        Login
+        Entrar
       </button>
       <button onClick={() => navigate("/signup")} style={{fontSize: 14, background: "transparent", color: "white"}}>
-        Create Account
+        Criar conta
       </button>
     </div>
   );

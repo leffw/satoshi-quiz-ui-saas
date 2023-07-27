@@ -37,6 +37,7 @@ const Signup = () => {
         });
       })
       .catch((error) => {
+        setLoading(false);
         alert("This account already exists.");
       });
   };
@@ -70,10 +71,10 @@ const Signup = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleSignup} disabled={!isValidEmail(email) || !isValidPassword(password)}>
-        Signup
+        Criar contar
       </button>
       <button onClick={() => navigate("/login")} style={{fontSize: 14, background: "transparent", color: "white"}}>
-        Login Account
+        Entrar na conta
       </button>
     </div>
   );

@@ -1,7 +1,4 @@
-body {
-  background-color: #1F1337;
-}
-
+/* Default styles */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -17,7 +14,6 @@ h2, h3, p {
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  max-width: 500px;
   padding: 20px;
 }
 
@@ -48,43 +44,25 @@ h2, h3, p {
   background-color: #B71C1C;
 }
 
-.add-button {
-  width: 105%;
-  background-color: #5a67d8;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .quiz-container {
+    max-width: 90%;
+  }
 }
 
-.add-button:hover {
-  background-color: #4a56bd;
-}
+@media screen and (max-width: 480px) {
+  .quiz-container {
+    max-width: 80%;
+    padding: 15px;
+  }
 
-.add-button:active {
-  transform: scale(0.95);
-}
+  .option-button {
+    flex-basis: 100%;
+  }
 
-.next-button {
-  width: 105%;
-  margin-top: 5%;
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.next-button:hover {
-  background-color: #45a049;
-}
-
-.next-button:active {
-  transform: scale(0.95);
+  .add-button,
+  .next-button {
+    width: 100%;
+  }
 }
