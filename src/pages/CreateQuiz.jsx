@@ -59,7 +59,7 @@ const CreateQuiz = () => {
           answer: answer      
         }]);
     } 
-    
+  
     if (quizzes.length >= 1) {
       backend.createQuiz(
         topic,
@@ -86,7 +86,7 @@ const CreateQuiz = () => {
   
   if (isStartQuiz === false) {
     return (
-      <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
+      <div style={{ width: 450, display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
         <p>* What is the topic name?</p>
         <input style={{ width: "100%" }} onInput={(e) => {
           setTopic(e.target.value)
@@ -107,9 +107,8 @@ const CreateQuiz = () => {
   }
 
   return (
-    <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
-      <h2 style={{alignSelf: "center"}}> Quiz #{quizzes.length + 1} </h2>
-      <p>* What is the question?</p>
+    <div style={{ width: 350,  display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 12 }}>
+      <p>*  #{quizzes.length + 1} What is the question?</p>
       <input style={{ width: "100%" }} onInput={(e) => {
         setQuestion(e.target.value)
       }}/>
@@ -124,12 +123,12 @@ const CreateQuiz = () => {
         />
       ))}
       {question && options.length == 0 && (
-        <button onClick={handleAddOption} className="add-button">
+        <button onClick={handleAddOption} style={{width: "105%"}}>
           +
         </button>
       )}
       {!isQuizComplete && question && quizzes.length < 7 && options.length != 0 && options[options.length - 1].length >= 4 && (
-        <button onClick={handleAddOption} className="add-button">
+        <button onClick={handleAddOption} style={{width: "105%"}}>
           +
         </button>
       )}
@@ -145,10 +144,18 @@ const CreateQuiz = () => {
       }
       {options.length == 3 && answer && options.includes(answer) === true && (
         <>
-          <button onClick={handleAddQuiz} className="next-button">
+          <button 
+            onClick={handleAddQuiz} 
+            style={{width: "105%", background: "#E2E2E2", color: "black"}}
+          >
             Next
           </button>
-          <button onClick={handleCreateQuiz} style={{width: "105%"}}>Create</button>
+          <button 
+            onClick={handleCreateQuiz} 
+            style={{width: "105%", background: "#FE5900", color: "white"}}
+          >
+              Create
+          </button>
         </>
       )}
     </div>
