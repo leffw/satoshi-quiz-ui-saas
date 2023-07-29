@@ -86,75 +86,71 @@ const CreateQuiz = () => {
   
   if (isStartQuiz === false) {
     return (
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
-          <p>* What is the topic name?</p>
-          <input style={{ width: "100%" }} onInput={(e) => {
-            setTopic(e.target.value)
-          }}/>
-          <p>* What is the Redirect Link?</p>
-          <input type='text' placeholder='https://google.com' style={{ width: "100%" }} onInput={(e) => {
-            setRedirectionLink(e.target.value)
-          }}/>
-          <p>* What is the prize amount?</p>
-          <input type='number' defaultValue={1} onInput={(e) => setPrizeValue(e.target.value)} placeholder="0" style={{ width: "100%" }} />
-          <button 
-            style={{width: "105%"}} 
-            onClick={() => setIsStartQuiz(true)}
-            disabled={(prizeValue < 1 || topic.length < 4 || isValidURL(redirectionLink) === false)}
-          > Continue </button>
-        </div>
+      <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
+        <p>* What is the topic name?</p>
+        <input style={{ width: "100%" }} onInput={(e) => {
+          setTopic(e.target.value)
+        }}/>
+        <p>* What is the Redirect Link?</p>
+        <input type='text' placeholder='https://google.com' style={{ width: "100%" }} onInput={(e) => {
+          setRedirectionLink(e.target.value)
+        }}/>
+        <p>* What is the prize amount?</p>
+        <input type='number' defaultValue={1} onInput={(e) => setPrizeValue(e.target.value)} placeholder="0" style={{ width: "100%" }} />
+        <button 
+          style={{width: "105%"}} 
+          onClick={() => setIsStartQuiz(true)}
+          disabled={(prizeValue < 1 || topic.length < 4 || isValidURL(redirectionLink) === false)}
+        > Continue </button>
       </div>
     )
   }
 
   return (
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
-        <h2 style={{alignSelf: "center"}}> Quiz #{quizzes.length + 1} </h2>
-        <p>* What is the question?</p>
-        <input style={{ width: "100%" }} onInput={(e) => {
-          setQuestion(e.target.value)
-        }}/>
-        <p> * Options </p>
-        {options.map((option, index) => (
-          <input
-            key={index}
-            value={option}
-            placeholder={`options ${index + 1}`}
-            style={{ width: "100%" }}
-            onChange={(e) => handleOptionChange(index, e.target.value)}
-          />
-        ))}
-        {question && options.length == 0 && (
-          <button onClick={handleAddOption} className="add-button">
-            +
-          </button>
-        )}
-        {!isQuizComplete && question && quizzes.length < 7 && options.length != 0 && options[options.length - 1].length >= 4 && (
-          <button onClick={handleAddOption} className="add-button">
-            +
-          </button>
-        )}
-        {
-          options.length == 3 && options[options.length - 1].length >= 4 && (
-            <>
-              <p>* What is the correct answer?</p>
-              <input style={{ width: "100%" }} onInput={(e) => {
-                setAnswer(e.target.value)
-              }}/>
-            </>
-          )
-        }
-        {options.length == 3 && answer && options.includes(answer) === true && (
+    <div style={{ width: '450px', display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
+      <h2 style={{alignSelf: "center"}}> Quiz #{quizzes.length + 1} </h2>
+      <p>* What is the question?</p>
+      <input style={{ width: "100%" }} onInput={(e) => {
+        setQuestion(e.target.value)
+      }}/>
+      <p> * Options </p>
+      {options.map((option, index) => (
+        <input
+          key={index}
+          value={option}
+          placeholder={`options ${index + 1}`}
+          style={{ width: "100%" }}
+          onChange={(e) => handleOptionChange(index, e.target.value)}
+        />
+      ))}
+      {question && options.length == 0 && (
+        <button onClick={handleAddOption} className="add-button">
+          +
+        </button>
+      )}
+      {!isQuizComplete && question && quizzes.length < 7 && options.length != 0 && options[options.length - 1].length >= 4 && (
+        <button onClick={handleAddOption} className="add-button">
+          +
+        </button>
+      )}
+      {
+        options.length == 3 && options[options.length - 1].length >= 4 && (
           <>
-            <button onClick={handleAddQuiz} className="next-button">
-              Next
-            </button>
-            <button onClick={handleCreateQuiz} style={{width: "105%"}}>Create</button>
+            <p>* What is the correct answer?</p>
+            <input style={{ width: "100%" }} onInput={(e) => {
+              setAnswer(e.target.value)
+            }}/>
           </>
-        )}
-      </div>
+        )
+      }
+      {options.length == 3 && answer && options.includes(answer) === true && (
+        <>
+          <button onClick={handleAddQuiz} className="next-button">
+            Next
+          </button>
+          <button onClick={handleCreateQuiz} style={{width: "105%"}}>Create</button>
+        </>
+      )}
     </div>
   );
 };
