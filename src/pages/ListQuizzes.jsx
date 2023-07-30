@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Backend from "../lib/backend";
 
 function ListQuizzes() {
-  const [quizzes, setQuizzes] = useState([]);
+  const [ quizzes, setQuizzes ] = useState([]);
   const [ currentPage, setCurrentPage ] = useState(1);
   const [ loading, setLoading ] = useState(false);
   const [ balance, setBalance ] = useState(0)
@@ -51,8 +51,9 @@ function ListQuizzes() {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentQuizzes = quizzes.slice(startIndex, endIndex);
+  const currentQuizzes = quizzes.length >= 3 ? quizzes.slice(startIndex, endIndex) : quizzes;
   
+  console.log(currentQuizzes)
   if (loading === true) {
     return (
       <div>
@@ -89,7 +90,7 @@ function ListQuizzes() {
         </div>
 
       </div>
-      <div style={{width: 450}}>
+      <div style={{width: 350}}>
         {currentQuizzes.map((quiz) => (
           <div
             key={quiz.id}

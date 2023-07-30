@@ -35,12 +35,11 @@ const MemberStack = () => {
     <div style={{
       color: 'white',
       borderRadius: '8px',
-      width: 450,
+      width: 350,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "flex-start",
-      padding: "5%",
       gap: 10
     }}>
       <h2 style={{ alignSelf: "center" }}> MemberStack </h2>

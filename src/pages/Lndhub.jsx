@@ -63,12 +63,11 @@ const SetupLndhub = () => {
     <div style={{
       color: 'white',
       borderRadius: '8px',
-      width: 450,
+      width: 350,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "flex-start",
-      padding: "5%",
       gap: 10
     }}>
       <h2 style={{ alignSelf: "center" }}> LNDHub </h2>
@@ -83,7 +82,7 @@ const SetupLndhub = () => {
         Salvar e continuar
       </button>
       <a  
-        style={{ marginLeft: "25%", fontSize: "14px" }}
+        style={{ fontSize: "14px", margin: 0, justifySelf: "center", alignSelf: "center" }}
         target='#'
         href="https://blog.getalby.com/bluewallet-alby-how-to-switch-lndhub/"
       > 
