@@ -13,8 +13,7 @@ const SetupLndhub = () => {
   const navigate = useNavigate();
 
   const isValidLndhubURL = (url) => {
-    const lndhubURLRegex = /^lndhub:\/\/[0-9a-fA-F]+:[0-9a-fA-F]+@[a-zA-Z0-9.-]+$/;
-    return lndhubURLRegex.test(url);
+    return (url && String(url).includes("lndhub://") === true)
   };
 
   const handleInputString = (inputString) => {
