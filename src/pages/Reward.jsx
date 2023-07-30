@@ -18,7 +18,7 @@ const RewardScreen = () => {
 
   useEffect(() => {
     backend.createReward(id, user, answers).then((data) => {
-      setLnurl(data.data.lnurl)
+      setLnurl(`lightning:${data.data.lnurl}`)
     })
   }, []);
   
@@ -51,7 +51,7 @@ const RewardScreen = () => {
             justifyContent: 'center',
         }}
       >
-        <a href={lnurl}>
+        <a href={lnurl} target='#'>
           <QRCode 
             value={lnurl} 
             size={256} 
