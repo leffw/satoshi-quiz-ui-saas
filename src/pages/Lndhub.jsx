@@ -20,7 +20,7 @@ const SetupLndhub = () => {
   const handleInputString = (inputString) => {
     setLndhubURL(inputString);
     if (inputString && String(inputString).includes("lndhub://") === true) {
-      var inputString = inputString.replaceAll("lndhub://", "")
+      var inputString = inputString.replaceAll("lndhub://", "").replaceAll("http://", "").replaceAll("https://", "")
       
       const username = inputString.split(":")[0]
       const password = inputString.split(":")[1].split("@")[0];
@@ -29,7 +29,6 @@ const SetupLndhub = () => {
       setLndhubUsername(username);
       setLndhubPassword(password);
       setLndhubBaseURL(`https://${baseURL}`);
-      console.log(lndhubBaseURL)
     }
   };
 
