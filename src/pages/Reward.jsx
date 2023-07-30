@@ -51,7 +51,7 @@ const RewardScreen = () => {
             justifyContent: 'center',
         }}
       >
-        <a href={lnurl} target='#'>
+        <a href={lnurl}>
           <QRCode 
             value={lnurl} 
             size={256} 
