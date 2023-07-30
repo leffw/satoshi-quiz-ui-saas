@@ -56,4 +56,12 @@ export default class BackendAPI {
         return this.call("POST", `/api/v1/reward/${id}`, {
             user: user, answers: answers })
     }
+
+    getBalance() {
+        return this.call("GET", "/api/v1/balance", {})
+    }
+
+    createInvoice() {
+        return this.call("POST", "/api/v1/invoice", {})
+    }
 }

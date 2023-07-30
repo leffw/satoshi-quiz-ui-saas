@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Backend from "../lib/backend";
 
 const SetupLndhub = () => {
-  const [ lndhubURL, setLndhubURL ] = useState('');
+  const [ lndhubURL, setLndhubURL ] = useState('https://ln.getalby.com');
   const [ lndhubUsername, setLndhubUsername ] = useState('');
   const [ lndhubPassword, setLndhubPassword ] = useState('');
   const [ loading, setLoading] = useState(false);
@@ -29,11 +29,14 @@ const SetupLndhub = () => {
     ).then(() => {
       navigate("/setup/memberstack")
     }).catch((e) => {
-      if (e.response.status === 401) {
+      if (e.response.status === 400) {
+        alert(e.response.data.detail);
+      } else if (e.response.status === 401) {
         navigate("/login")
       } else {
         navigate("/setup/memberstack")
       }
+      setLoading(false);
     })
   }
 

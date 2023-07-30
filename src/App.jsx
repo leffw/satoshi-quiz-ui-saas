@@ -3,6 +3,7 @@ import MemberStack from "./pages/MemberStack";
 import Lndhub from "./pages/Lndhub";
 import ListQuizzes from "./pages/ListQuizzes";
 import CreateQuiz from "./pages/CreateQuiz";
+import Receive from "./pages/Receive";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Reward from "./pages/Reward";
@@ -41,6 +42,11 @@ function App() {
       <Route path="/setup/memberstack" exact element={
         <ProtectedRoute>
           <MemberStack />
+        </ProtectedRoute>
+      } />
+      <Route path="/receive" exact element={
+        <ProtectedRoute>
+          <Receive />
         </ProtectedRoute>
       } />
       <Route path="/:id/reward" exact element={<Reward />} />

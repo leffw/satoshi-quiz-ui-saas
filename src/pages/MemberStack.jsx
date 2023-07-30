@@ -6,9 +6,9 @@ const MemberStack = () => {
   const [ memberStackAPIKey, setMemberStackAPIKey ] = useState('');
   const [ loading, setLoading ] = useState(false);
   const navigate = useNavigate();
+  const backend = new Backend()
 
   const handleMemberStack= async () => {
-    const backend = new Backend()
     setLoading(true);
     backend.setupMemberStack(
       memberStackAPIKey
@@ -56,7 +56,7 @@ const MemberStack = () => {
       </button>
       <button 
         onClick={() => navigate("/")} 
-        style={{ backgroundColor: "transparent" }}
+        style={{ backgroundColor: "transparent", color: "white" }}
       >
         Pular
       </button>
