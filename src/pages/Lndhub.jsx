@@ -3,27 +3,40 @@ import { useNavigate } from 'react-router-dom';
 import Backend from "../lib/backend";
 
 const SetupLndhub = () => {
-  const [ lndhubURL, setLndhubURL ] = useState('https://ln.getalby.com');
+  const [ lndhubURL, setLndhubURL ] = useState('');
   const [ lndhubUsername, setLndhubUsername ] = useState('');
   const [ lndhubPassword, setLndhubPassword ] = useState('');
+  const [ lndhubBaseURL, setLndhubBaseURL ] = useState('');
   const [ loading, setLoading] = useState(false);
   const backend = new Backend()
 
   const navigate = useNavigate();
 
-  const isValidURL = (url) => {
-    try {
-      new URL(url);
-      return true;
-    } catch (error) {
-      return false;
+  const isValidLndhubURL = (url) => {
+    const lndhubURLRegex = /^lndhub:\/\/[0-9a-fA-F]+:[0-9a-fA-F]+@[a-zA-Z0-9.-]+$/;
+    return lndhubURLRegex.test(url);
+  };
+
+  const handleInputString = (inputString) => {
+    setLndhubURL(inputString);
+    if (inputString && String(inputString).includes("lndhub://") === true) {
+      var inputString = inputString.replaceAll("lndhub://", "")
+      
+      const username = inputString.split(":")[0]
+      const password = inputString.split(":")[1].split("@")[0];
+      const baseURL = inputString.split("@")[1]
+    
+      setLndhubUsername(username);
+      setLndhubPassword(password);
+      setLndhubBaseURL(`https://${baseURL}`);
+      console.log(lndhubBaseURL)
     }
   };
 
   const handleLndhub = async () => {
     setLoading(true);
     backend.setupLndhub(
-      lndhubURL,
+      lndhubBaseURL,
       lndhubUsername,
       lndhubPassword
     ).then(() => {
@@ -39,14 +52,6 @@ const SetupLndhub = () => {
       setLoading(false);
     })
   }
-
-  const isInputValid = (inputValue) => {
-    return inputValue.length >= 6;
-  };
-
-  const isFormValid = () => {
-    return isValidURL(lndhubURL) && isInputValid(lndhubUsername) && isInputValid(lndhubPassword);
-  };
 
   if (loading === true) {
     return (
@@ -69,28 +74,14 @@ const SetupLndhub = () => {
       gap: 10
     }}>
       <h2 style={{ alignSelf: "center" }}> Lndhub Provider </h2>
-      <p> * Lndhub URL </p>
+      <p> * Lndhub </p>
       <input
-        placeholder='https://ln.getalby.com'
+        placeholder='lndhub://9269208a410a4788:60e1cf3d8f304ca7@ln.getalby.com'
         style={{ width: "95%" }}
         value={lndhubURL}
-        onChange={(e) => setLndhubURL(e.target.value)}
+        onChange={(e) => handleInputString(e.target.value)}
       />
-      <p> * Lndhub Username </p>
-      <input
-        placeholder='60e1cf3d8f304ca7'
-        style={{ width: "95%" }}
-        value={lndhubUsername}
-        onChange={(e) => setLndhubUsername(e.target.value)}
-      />
-      <p> * Lndhub Password </p>
-      <input
-        placeholder='9269208a410a4788'
-        style={{ width: "95%" }}
-        value={lndhubPassword}
-        onChange={(e) => setLndhubPassword(e.target.value)}
-      />
-      <button onClick={handleLndhub} disabled={!isFormValid()}>
+      <button onClick={handleLndhub} disabled={!isValidLndhubURL(lndhubURL)}>
         Salvar e continuar
       </button>
     </div>
