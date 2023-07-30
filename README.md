@@ -1,5 +1,6 @@
 # Satoshi Quiz SaaS - Rewarding Quiz Platform with Sats
 ![](./demo.png)
+
 This is the user interface (UI) for the Satoshi Quiz platform. It offers a wide range of features so that users can manage their Quizzes efficiently. With this UI, it is possible to create new Quizzes, list the existing ones, delete them and even finance the sats portfolio directly within the application. With an intuitive and functional interface, users can enjoy a practical and convenient experience when using the Satoshi Quiz platform.
 
 ### Customization of Quizzes Parameters
