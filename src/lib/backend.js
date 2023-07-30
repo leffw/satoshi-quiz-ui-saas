@@ -45,7 +45,7 @@ export default class BackendAPI {
     }
 
     getQuiz(id) {
-        return this.call("GET", `/api/v1/q/${id}`, {})
+        return this.call("GET", `/api/v1/public/quiz/${id}`, {})
     }
     
     deleteQuiz(id) {

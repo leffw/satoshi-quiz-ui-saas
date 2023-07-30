@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LinkSimple, Trash, CaretRight, CaretLeft, Plus, Lightning } from "@phosphor-icons/react";
+import { LinkSimple, Trash, CaretRight, CaretLeft, Plus, Lightning, Gear } from "@phosphor-icons/react";
 import { useNavigate } from 'react-router-dom';
 import Backend from "../lib/backend";
 
@@ -69,16 +69,25 @@ function ListQuizzes() {
           marginBottom: "5%", 
           display: "flex", 
           flexDirection: "row",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
         }}>
         {balance} sats 
-        <button 
-          style={{background: "transparent", width: 35}}
-          onClick={() => navigate("/receive")}
-        >
-          <Lightning size={18} color='orange'/>
-        </button>
+        <div>
+          <button 
+            style={{background: "transparent", width: 35}}
+            onClick={() => navigate("/receive")}
+          >
+            <Lightning size={18} color='orange'/>
+          </button>
+          <button 
+            style={{background: "transparent", width: 35}}
+            onClick={() => navigate("/setup/lndhub")}
+          >
+            <Gear size={18} color='white'/>
+          </button>
+        </div>
+
       </div>
       <div style={{width: 450}}>
         {currentQuizzes.map((quiz) => (

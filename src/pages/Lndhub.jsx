@@ -73,7 +73,7 @@ const SetupLndhub = () => {
       padding: "5%",
       gap: 10
     }}>
-      <h2 style={{ alignSelf: "center" }}> Lndhub Provider </h2>
+      <h2 style={{ alignSelf: "center" }}> LNDHub </h2>
       <p> * Lndhub </p>
       <input
         placeholder='lndhub://9269208a410a4788:60e1cf3d8f304ca7@ln.getalby.com'
@@ -84,6 +84,13 @@ const SetupLndhub = () => {
       <button onClick={handleLndhub} disabled={!isValidLndhubURL(lndhubURL)}>
         Salvar e continuar
       </button>
+      <a  
+        style={{ marginLeft: "25%", fontSize: "14px" }}
+        target='#'
+        href="https://blog.getalby.com/bluewallet-alby-how-to-switch-lndhub/"
+      > 
+        Como obter o código Lndhub de Alby?
+      </a>
     </div>
   );
 };

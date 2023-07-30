@@ -38,28 +38,22 @@ const CreateQuiz = () => {
   };
 
   const handleAddQuiz = () => {
-    setQuizzes([
-      ...quizzes, {
-        question: question,
-        options: [...options],
-        answer: answer,
+    if (question.trim() === '' || options.some(opt => opt.trim() === '') || answer.trim() === '') {
+      alert('Please fill in all the fields for the current quiz.');
+      return;
+    }
+    setQuizzes((prevQuizzes) => [...prevQuizzes, {
+      question: question,
+      options: [...options],
+      answer: answer,
     }]);
-    setQuestion("");
-    setAnswer("");
+    setQuestion('');
+    setAnswer('');
     setOptions(['']);
   };
   
   const handleCreateQuiz = () => {
     setLoading(true);
-    if (quizzes.length === 0) {
-      setQuizzes([
-        ...quizzes, {
-          question: question,
-          options: [...options],
-          answer: answer      
-        }]);
-    } 
-  
     if (quizzes.length >= 1) {
       backend.createQuiz(
         topic,
@@ -76,6 +70,7 @@ const CreateQuiz = () => {
   }
   
   const isQuizComplete = options.length === 3;
+
   if (loading === true) {
     return (
       <div>
@@ -87,32 +82,28 @@ const CreateQuiz = () => {
   if (isStartQuiz === false) {
     return (
       <div style={{ width: 450, display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 14 }}>
-        <p>* What is the topic name?</p>
-        <input style={{ width: "100%" }} onInput={(e) => {
+        <p>* Qual é o nome do tópico?</p>
+        <input default={topic} style={{ width: "100%" }} onInput={(e) => {
           setTopic(e.target.value)
         }}/>
-        <p>* What is the Redirect Link?</p>
-        <input type='text' placeholder='https://google.com' style={{ width: "100%" }} onInput={(e) => {
-          setRedirectionLink(e.target.value)
-        }}/>
-        <p>* What is the prize amount?</p>
+        <p>* Qual é o valor do prêmio?</p>
         <input type='number' defaultValue={1} onInput={(e) => setPrizeValue(e.target.value)} placeholder="0" style={{ width: "100%" }} />
         <button 
           style={{width: "105%"}} 
           onClick={() => setIsStartQuiz(true)}
-          disabled={(prizeValue < 1 || topic.length < 4 || isValidURL(redirectionLink) === false)}
-        > Continue </button>
+          disabled={(prizeValue < 1 || topic.length < 4)}
+        > Continuar </button>
       </div>
     )
   }
 
   return (
     <div style={{ width: 350,  display: 'flex', flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start", gap: 12 }}>
-      <p>*  #{quizzes.length + 1} What is the question?</p>
-      <input style={{ width: "100%" }} onInput={(e) => {
+      <p>*  #{quizzes.length + 1} Qual é a pergunta?</p>
+      <input default={question} style={{ width: "100%" }} onInput={(e) => {
         setQuestion(e.target.value)
       }}/>
-      <p> * Options </p>
+      <p> * Opções </p>
       {options.map((option, index) => (
         <input
           key={index}
@@ -135,7 +126,7 @@ const CreateQuiz = () => {
       {
         options.length == 3 && options[options.length - 1].length >= 4 && (
           <>
-            <p>* What is the correct answer?</p>
+            <p>* Qual é a resposta correta?</p>
             <input style={{ width: "100%" }} onInput={(e) => {
               setAnswer(e.target.value)
             }}/>
@@ -145,16 +136,19 @@ const CreateQuiz = () => {
       {options.length == 3 && answer && options.includes(answer) === true && (
         <>
           <button 
-            onClick={handleAddQuiz} 
+            onClick={() => handleAddQuiz()} 
             style={{width: "105%", background: "#E2E2E2", color: "black"}}
           >
-            Next
+            Criar + Quiz
           </button>
-          <button 
-            onClick={handleCreateQuiz} 
-            style={{width: "105%", background: "#FE5900", color: "white"}}
+          <button
+            onClick={() => {
+              handleAddQuiz();
+              handleCreateQuiz();
+            }}
+            style={{ width: "105%", background: "#FE5900", color: "white" }}
           >
-              Create
+            Finalizar Criação do Quiz
           </button>
         </>
       )}

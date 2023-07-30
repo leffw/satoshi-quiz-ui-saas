@@ -10,7 +10,7 @@ const RewardScreen = () => {
   const query = useSearchParams()[0]
 
   const answers = query.get("answers")
-  const score = query.get("score")
+  const reward = query.get("reward")
   const user = query.get("user")
   const background = query.get('bg');
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ const RewardScreen = () => {
   if (!lnurl) {
     return (
       <div>
-        <h3>Parabéns! Sua pontuação é de {score} pontos!</h3>
+        <h3>🏆 Parabéns! Você ganhou {reward} sats de recompensa!</h3>
       </div>
     )
   }
@@ -51,7 +51,6 @@ const RewardScreen = () => {
             justifyContent: 'center',
         }}
       >
-        <h3> Pontos: {score}</h3>
         <a href={lnurl}>
           <QRCode 
             value={lnurl} 
@@ -64,8 +63,7 @@ const RewardScreen = () => {
 
         <p style={{width: "50%"}}>
           Escaneie O QRCode com sua 
-          Carteira Lightning para receber 
-          sats.
+          Carteira Lightning!
         </p>
       </div>
     </div>

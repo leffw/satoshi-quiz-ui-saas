@@ -4,6 +4,7 @@ import Backend from '../lib/backend';
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [ totalValueQuiz, setTotalValueQuiz ] = useState(0);
   const [score, setScore] = useState(0);
   const [isAnswered, setIsAnswered] = useState(null);
   const [isCorrectAnswer, setCorrectAnswer] = useState(null);
@@ -45,7 +46,10 @@ const Quiz = () => {
   useEffect(() => {
     const backend = new Backend();
     backend.getQuiz(id).then((data) => {
-      setQuizData(data.data);
+      console.log(data)
+      setQuizData(data.data.quizzes);
+      console.log(data.data.prize)
+      setTotalValueQuiz(data.data.prize);
     });
   }, [id]);
 
@@ -98,23 +102,26 @@ const Quiz = () => {
           ))}
         </div>
         <br />
-        {isAnswered && answer !== quizData[currentQuestion].answer && <p>A resposta correta é {quizData[currentQuestion].answer}!</p>}
+        {isAnswered && answer !== quizData[currentQuestion].answer && (<p>A resposta correta é {quizData[currentQuestion].answer}!</p>)}
+        {isAnswered && answer === quizData[currentQuestion].answer && (
+          <p>🏆 Resposta certa! Você ganhou +{(totalValueQuiz / (currentQuestion + 1)).toFixed(0)} sats!</p>
+        )}
         {isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
           <button 
             style={{ height: 60 }}
-            onClick={() => navigate(`/${id}/reward?user=${user}&answers=${btoa(answers)}&score=${score}`)}>
-            Receber minha recompensa!
+            onClick={() => navigate(`/${id}/reward?user=${user}&answers=${btoa(answers)}&reward=${((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)}`)}>
+            Receber recompensa!
           </button>
         )}
         {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
           <button 
             style={{ height: 60 }}
             onClick={() => window.open(location.toString(), '_self')}>
-              Refazer o Quiz Novamente!
+              Refazer Quiz!
           </button>
         )}
         {isAnswered && currentQuestion !== lengthQuiz && <button onClick={handleNextQuestion}>Próxima Pergunta</button>}
-        <p>Pontuação: {score}</p>
+        <p>Prêmio {((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)} sats ⚡</p>
       </div>
     </div>
   );
