@@ -17,9 +17,10 @@ const Quiz = () => {
   const navigate = useNavigate();
   const query = useSearchParams()[0];
   const user = query.get('user');
-  const background = query.get('bg');
-  const colorButtonCorrectAnswer = query.get('bgButtonCorrectAnswer');
-  const colorButton = query.get('colorButton');
+  const background = query.get('bg') ? query.get('bg') : "#4C0CA7";
+  const colorButtonCorrectAnswer = query.get('bgButtonCorrectAnswer') ? query.get('bgButtonCorrectAnswer') : "green";
+  const colorBUttonWrongAnswer = query.get('bgButtonWrongAnswer') ? query.get('bgButtonWrongAnswer') : "red";
+  const colorButton = query.get('colorButton') ? query.get('colorButton') : "#3f226b";
 
   const handleAnswer = (selectedAnswer) => {
     if (!isAnswered) {
@@ -61,16 +62,7 @@ const Quiz = () => {
     color: 'white',
     borderColor: 'white',
     width: 350,
-  };
-
-  const correctButtonStyle = {
-    backgroundColor: colorButtonCorrectAnswer || '#FE5900',
-    ...buttonStyle,
-  };
-
-  const defaultButtonStyle = {
-    backgroundColor: colorButton || '#6900FF',
-    ...buttonStyle,
+    border: "none",
   };
 
   return (
@@ -87,41 +79,72 @@ const Quiz = () => {
         background: background,
       }}
     >
-      <div className="quiz-container">
-        <h2>{quizData[currentQuestion].question}</h2>
-        <div className="options-container">
+      <div
+        style={{
+          margin: "0 auto",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 20,
+          maxWidth: "800px",
+          width: "90%",
+        }}
+      >
+        <h2 style={{ wordWrap: "break-word", width: "50%", marginLeft: "25%" }}>{`${currentQuestion + 1}) `} 
+          {quizData[currentQuestion].question}
+        </h2>
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 15,
+        }}>
           {quizData[currentQuestion].options.split('|').map((option, index) => (
             <button
               key={index}
-              onClick={() => handleAnswer(option)}
+              id={index}
+              onClick={() => {
+                console.log(option)
+                handleAnswer(option)
+              }}
+              value={option}
               className="option-button"
-              style={isAnswered ? (option === quizData[currentQuestion].answer ? correctButtonStyle : defaultButtonStyle) : buttonStyle}
+              style={{
+                ...buttonStyle,
+                backgroundColor:
+                  (answer) ? (option === quizData[currentQuestion].answer ? colorButtonCorrectAnswer : colorBUttonWrongAnswer) : colorButton,
+              }}
             >
               {option}
             </button>
           ))}
+          {isAnswered && answer !== quizData[currentQuestion].answer && (
+            <p  style={{ wordWrap: "break-word", width: 350}}>
+              A resposta correta é {quizData[currentQuestion].answer}!
+            </p>
+          )}
+          {isAnswered && answer === quizData[currentQuestion].answer && (
+            <p  style={{ wordWrap: "break-word", width: 350 }}>🏆 Resposta certa! Você ganhou +{(totalValueQuiz / (currentQuestion + 1)).toFixed(0)} sats!</p>
+          )}
+          {isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
+            <button 
+              style={{ height: 60, width: 350, padding: 5  }}
+              onClick={() => 
+                navigate(`/${id}/reward?user=${user}&answers=${btoa(answers)}&reward=${((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)}`)
+            }>
+              Receber recompensa!
+            </button>
+          )}
+          {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
+            <button 
+              style={{ height: 60, width: 350, padding: 5 }}
+              onClick={() => window.open(location.toString(), '_self')}>
+                Refazer Quiz!
+            </button>
+          )}
+          {isAnswered && currentQuestion !== lengthQuiz && <button onClick={handleNextQuestion}>Próxima Pergunta</button>}
+          <p>Prêmio Acumulado {((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)} sats ⚡</p>
         </div>
-        <br />
-        {isAnswered && answer !== quizData[currentQuestion].answer && (<p>A resposta correta é {quizData[currentQuestion].answer}!</p>)}
-        {isAnswered && answer === quizData[currentQuestion].answer && (
-          <p>🏆 Resposta certa! Você ganhou +{(totalValueQuiz / (currentQuestion + 1)).toFixed(0)} sats!</p>
-        )}
-        {isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
-          <button 
-            style={{ height: 60 }}
-            onClick={() => navigate(`/${id}/reward?user=${user}&answers=${btoa(answers)}&reward=${((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)}`)}>
-            Receber recompensa!
-          </button>
-        )}
-        {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
-          <button 
-            style={{ height: 60 }}
-            onClick={() => window.open(location.toString(), '_self')}>
-              Refazer Quiz!
-          </button>
-        )}
-        {isAnswered && currentQuestion !== lengthQuiz && <button onClick={handleNextQuestion}>Próxima Pergunta</button>}
-        <p>Prêmio {((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)} sats ⚡</p>
       </div>
     </div>
   );

@@ -58,8 +58,10 @@ const Login = () => {
       display: "flex",
       flexDirection: "column",
       gap: 15,
+      maxWidth: "450px",
       width: 350,
-      justifyContent: "flex-start"
+      margin: "0 auto",
+      padding: "20px",
     }}>
       <h2>Entrar</h2>
       <label style={{ alignSelf: "flex-start" }}>* Email:</label>
@@ -67,17 +69,31 @@ const Login = () => {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        style={{ width: "100%" }}
       />
-      <label style={{ alignSelf: "flex-start" }}>* Password:</label>
+      <label style={{ alignSelf: "flex-start" }}>* Senha:</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        style={{ width: "100%" }}
       />
-      <button onClick={handleLogin} disabled={!isValidEmail(email) || !isValidPassword(password)}>
+      <button
+        onClick={handleLogin}
+        disabled={!isValidEmail(email) || !isValidPassword(password)}
+        style={{ width: "105%" }}
+      >
         Entrar
       </button>
-      <button onClick={() => navigate("/signup")} style={{fontSize: 14, background: "transparent", color: "white"}}>
+      <button
+        onClick={() => navigate("/signup")}
+        style={{
+          fontSize: 14,
+          background: "transparent",
+          color: "white",
+          width: "105%",
+        }}
+      >
         Criar conta
       </button>
     </div>
