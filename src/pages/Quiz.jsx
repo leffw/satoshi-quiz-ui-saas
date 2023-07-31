@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { CaretRight } from "@phosphor-icons/react";
 import Backend from '../lib/backend';
 
 const Quiz = () => {
@@ -11,6 +12,8 @@ const Quiz = () => {
   const [answer, setAnswer] = useState('');
   const [answers, setAnswers] = useState('');
   const [quizData, setQuizData] = useState([]);
+  const [ isStart, setIsStart ] = useState(false);
+  const [ topic, setTopic ] = useState("");
   const lengthQuiz = quizData?.length - 1;
 
   const { id } = useParams();
@@ -47,9 +50,8 @@ const Quiz = () => {
   useEffect(() => {
     const backend = new Backend();
     backend.getQuiz(id).then((data) => {
-      console.log(data)
+      setTopic(data.data.topic);
       setQuizData(data.data.quizzes);
-      console.log(data.data.prize)
       setTotalValueQuiz(data.data.prize);
     });
   }, [id]);
@@ -64,6 +66,33 @@ const Quiz = () => {
     width: 350,
     border: "none",
   };
+
+  if (isStart === false) {
+    return (
+      <div>
+        <h2 style={{ wordWrap: "break-word", width: "50%", marginLeft: "25%" }}> {topic} </h2>
+        <button 
+          style={{ 
+            display: "flex",
+            flexDirection: "row",
+            width: 350, 
+            height: 60, 
+            background: "none", 
+            color: "white", 
+            fontWeight: "bold",
+            justifyContent: "space-between",
+            border: '1px solid white',
+            alignItems: "center", 
+            gap: 15,
+          }}
+          onClick={() => {
+            setIsStart(true);
+        }}> 
+          Iniciar Quiz <CaretRight size={22} weight="bold" />
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -113,6 +142,9 @@ const Quiz = () => {
                 ...buttonStyle,
                 backgroundColor:
                   (answer) ? (option === quizData[currentQuestion].answer ? colorButtonCorrectAnswer : colorBUttonWrongAnswer) : colorButton,
+                  height: 50,
+                  background: "none",
+                  border: '1px solid white'
               }}
             >
               {option}

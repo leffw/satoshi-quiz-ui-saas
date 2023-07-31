@@ -123,13 +123,13 @@ const CreateQuiz = () => {
               +
             </button>
           )}
-          {!(options.length === 4) && question && quizzes.length < 7 && options.length !== 0 && options[options.length - 1].length >= 5 && (
+          {!(options.length === 4) && question && quizzes.length < 7 && options.length !== 0 && options[options.length - 1].length >= 4 && (
             <button onClick={handleAddOption} style={{ width: '105%' }}>
               +
             </button>
           )}
           {
-            options.length === 4 && options[options.length - 1].length >= 5 && (
+            options.length >= 3 && options[options.length - 1].length >= 4 && (
               <>
                 <p>* Qual é a resposta correta?</p>
                 <input
@@ -141,7 +141,7 @@ const CreateQuiz = () => {
               </>
             )
           }
-          {options.length === 4 && answer && options.includes(answer) === true && (
+          {options.length >= 3 && answer && options.includes(answer) === true && (
             <>
               <button
                 onClick={handleAddQuiz}
