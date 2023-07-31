@@ -70,7 +70,7 @@ const Quiz = () => {
   if (isStart === false) {
     return (
       <div>
-        <h2 style={{ wordWrap: "break-word", width: "50%", marginLeft: "25%" }}> {topic} </h2>
+        <h2 style={{ wordWrap: "break-word", width: "50%" }}> {topic} </h2>
         <button 
           style={{ 
             display: "flex",
