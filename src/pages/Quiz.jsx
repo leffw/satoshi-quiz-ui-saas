@@ -20,7 +20,7 @@ const Quiz = () => {
   const navigate = useNavigate();
   const query = useSearchParams()[0];
   const user = query.get('user');
-  const background = query.get('bg') ? query.get('bg') : "#4C0CA7";
+  const background = query.get('bg') ? query.get('bg') : "#6709F9";
   const colorButtonCorrectAnswer = query.get('bgButtonCorrectAnswer') ? query.get('bgButtonCorrectAnswer') : "green";
   const colorBUttonWrongAnswer = query.get('bgButtonWrongAnswer') ? query.get('bgButtonWrongAnswer') : "red";
   const colorButton = query.get('colorButton') ? query.get('colorButton') : "#3f226b";
