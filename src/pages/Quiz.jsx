@@ -69,27 +69,43 @@ const Quiz = () => {
 
   if (isStart === false) {
     return (
-      <div>
-        <h2 style={{ wordWrap: "break-word", width: "50%" }}> {topic} </h2>
-        <button 
-          style={{ 
-            display: "flex",
-            flexDirection: "row",
-            width: 350, 
-            height: 60, 
-            background: "none", 
-            color: "white", 
-            fontWeight: "bold",
-            justifyContent: "space-between",
-            border: '1px solid white',
-            alignItems: "center", 
-            gap: 15,
-          }}
-          onClick={() => {
-            setIsStart(true);
-        }}> 
-          Iniciar Quiz <CaretRight size={22} weight="bold" />
-        </button>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: background,
+          flexDirection: "column",
+        }}
+      >
+        <div style={{width: 450}}>
+          <h2 style={{  wordWrap: "break-word" }}>
+            {topic}
+          </h2>
+          <button 
+            style={{ 
+              display: "flex",
+              flexDirection: "row",
+              height: 60, 
+              background: "none", 
+              color: "white", 
+              fontWeight: "bold",
+              justifyContent: "space-between",
+              border: '1px solid white',
+              alignItems: "center", 
+              gap: 15,
+            }}
+            onClick={() => {
+              setIsStart(true);
+          }}> 
+            Iniciar Quiz <CaretRight size={22} weight="bold" />
+          </button>
+        </div>
       </div>
     )
   }
