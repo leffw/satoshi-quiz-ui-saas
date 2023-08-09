@@ -80,13 +80,16 @@ const Quiz = () => {
           width: '100vw',
           height: '100vh',
           background: background,
-          flexDirection: "column",
         }}
       >
-        <div style={{width: 450}}>
+        <div style={{width: 350}}>
           <h2 style={{  wordWrap: "break-word" }}>
             {topic}
           </h2>
+          <p>
+            Atenção! Você só pode fazer este quiz apenas uma vez responda 
+            com atenção, e no final você recebera uma recompensa.
+          </p>
           <button 
             style={{ 
               display: "flex",
@@ -184,11 +187,7 @@ const Quiz = () => {
             </button>
           )}
           {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
-            <button 
-              style={{ height: 60, width: 350, padding: 5 }}
-              onClick={() => window.open(location.toString(), '_self')}>
-                Refazer Quiz!
-            </button>
+            <p style={{width: "50%"}}>Você respondeu incorretamente a todas as perguntas do quiz!</p>
           )}
           {isAnswered && currentQuestion !== lengthQuiz && <button onClick={handleNextQuestion}>Próxima Pergunta</button>}
           <p>Prêmio Acumulado {((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)} sats ⚡</p>

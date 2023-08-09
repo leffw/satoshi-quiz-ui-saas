@@ -129,7 +129,7 @@ const CreateQuiz = () => {
             </button>
           )}
           {
-            options.length >= 3 && options[options.length - 1].length >= 4 && (
+            options.length >= 3 && options[options.length - 1].length >= 4 && options.includes(options[options.length - 1]) && (
               <>
                 <p>* Qual é a resposta correta?</p>
                 <input

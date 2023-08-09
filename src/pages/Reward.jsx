@@ -4,8 +4,7 @@ import QRCode from 'react-qr-code';
 import Backend from "../lib/backend";
 
 const RewardScreen = () => {
-  const [ redirectURL, setRedirectURL ] = useState();
-  const [ lnurl, setLnurl ] = useState(null);
+  const [ lnurl, setLnurl ] = useState("");
   const { id } = useParams();
   const query = useSearchParams()[0]
 
@@ -21,14 +20,6 @@ const RewardScreen = () => {
       setLnurl(`lightning:${data.data.lnurl}`)
     })
   }, []);
-  
-  if (!lnurl) {
-    return (
-      <div>
-        <h3>🏆 Parabéns! Você ganhou {reward} sats de recompensa!</h3>
-      </div>
-    )
-  }
 
   return (
     <div
@@ -44,6 +35,9 @@ const RewardScreen = () => {
         background: background,
       }}
     >
+      <div>
+        
+      </div>
       <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -51,6 +45,9 @@ const RewardScreen = () => {
             justifyContent: 'center',
         }}
       >
+        <p style={{width: "90%", fontWeight: "bold"}}>
+          🏆 Parabéns! Você ganhou {reward} sats de recompensa!
+        </p>
         <a href={lnurl}>
           <QRCode 
             value={lnurl} 
