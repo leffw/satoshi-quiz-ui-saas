@@ -8,7 +8,7 @@ const RewardScreen = () => {
   const { id } = useParams();
   const query = useSearchParams()[0]
 
-  const answers = query.get("answers")
+  const points = query.get("points")
   const reward = query.get("reward")
   const user = query.get("user")
   const background = query.get('bg');
@@ -16,7 +16,7 @@ const RewardScreen = () => {
   const backend = new Backend()
 
   useEffect(() => {
-    backend.createReward(id, user, answers).then((data) => {
+    backend.createReward(id, user, points).then((data) => {
       setLnurl(`lightning:${data.data.lnurl}`)
     })
   }, []);

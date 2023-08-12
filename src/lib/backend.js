@@ -52,9 +52,9 @@ export default class BackendAPI {
         return this.call("DELETE", `/api/v1/quiz/${id}`, {});
     }
 
-    createReward(id, user, answers) {
+    createReward(id, user, points) {
         return this.call("POST", `/api/v1/reward/${id}`, {
-            user: user, answers: answers })
+            user: user, points: points })
     }
 
     getBalance() {

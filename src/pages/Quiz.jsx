@@ -185,7 +185,7 @@ const Quiz = () => {
             <button 
               style={{ height: 60, width: 350, padding: 5  }}
               onClick={() => 
-                navigate(`/${id}/reward?user=${user}&answers=${btoa(answers)}&reward=${((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)}`)
+                navigate(`/${id}/reward?user=${user}&points=${score}&reward=${((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)}`)
             }>
               Receber recompensa!
             </button>
