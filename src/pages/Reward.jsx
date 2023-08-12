@@ -53,7 +53,7 @@ const RewardScreen = () => {
             value={lnurl} 
             size={256} 
             viewBox={`0 0 256 256`}
-            bgColor='#371272' 
+            bgColor='#1F1338' 
             fgColor='white'
           />
         </a>

@@ -14,16 +14,17 @@ const Quiz = () => {
   const [quizData, setQuizData] = useState([]);
   const [ isStart, setIsStart ] = useState(false);
   const [ topic, setTopic ] = useState("");
+  const [ valuePerAnswer, setValuePerAnswer ] = useState(0);
   const lengthQuiz = quizData?.length - 1;
 
   const { id } = useParams();
   const navigate = useNavigate();
   const query = useSearchParams()[0];
   const user = query.get('user');
-  const background = query.get('bg') ? query.get('bg') : "#6709F9";
+  const background = query.get('bg') ? query.get('bg') : "#1F1338";
   const colorButtonCorrectAnswer = query.get('bgButtonCorrectAnswer') ? query.get('bgButtonCorrectAnswer') : "green";
   const colorBUttonWrongAnswer = query.get('bgButtonWrongAnswer') ? query.get('bgButtonWrongAnswer') : "red";
-  const colorButton = query.get('colorButton') ? query.get('colorButton') : "#3f226b";
+  const colorButton = query.get('colorButton') ? query.get('colorButton') : "#1F1338";
 
   const handleAnswer = (selectedAnswer) => {
     if (!isAnswered) {
@@ -44,6 +45,7 @@ const Quiz = () => {
     if (currentQuestion < quizData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setIsAnswered(null);
+      setAnswer(null);
     }
   };
 
@@ -53,6 +55,7 @@ const Quiz = () => {
       setTopic(data.data.topic);
       setQuizData(data.data.quizzes);
       setTotalValueQuiz(data.data.prize);
+      setValuePerAnswer(data.data.prize / data.data.quizzes.length);
     });
   }, [id]);
 
@@ -94,7 +97,7 @@ const Quiz = () => {
             style={{ 
               display: "flex",
               flexDirection: "row",
-              height: 60, 
+              height: 75, 
               background: "none", 
               color: "white", 
               fontWeight: "bold",
@@ -161,9 +164,11 @@ const Quiz = () => {
                 ...buttonStyle,
                 backgroundColor:
                   (answer) ? (option === quizData[currentQuestion].answer ? colorButtonCorrectAnswer : colorBUttonWrongAnswer) : colorButton,
-                  height: 50,
+                  height: 80,
+                  maxHeight: 90,
                   background: "none",
-                  border: '1px solid white'
+                  border: '1px solid white',
+                  fontSize: 14
               }}
             >
               {option}
@@ -175,7 +180,8 @@ const Quiz = () => {
             </p>
           )}
           {isAnswered && answer === quizData[currentQuestion].answer && (
-            <p  style={{ wordWrap: "break-word", width: 350 }}>🏆 Resposta certa! Você ganhou +{(totalValueQuiz / (currentQuestion + 1)).toFixed(0)} sats!</p>
+            <p  style={{ wordWrap: "break-word", width: 350 }}>
+              🏆 Resposta certa! Você ganhou +{valuePerAnswer && score ? valuePerAnswer: 0} sats!</p>
           )}
           {isAnswered && currentQuestion === lengthQuiz && score !== 0 && (
             <button 
@@ -187,10 +193,16 @@ const Quiz = () => {
             </button>
           )}
           {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
-            <p style={{width: "50%"}}>Você respondeu incorretamente a todas as perguntas do quiz!</p>
+            <p style={{width: "50%"}}>
+              Você respondeu incorretamente a todas as perguntas do quiz!
+            </p>
           )}
-          {isAnswered && currentQuestion !== lengthQuiz && <button onClick={handleNextQuestion}>Próxima Pergunta</button>}
-          <p>Prêmio Acumulado {((totalValueQuiz / (currentQuestion + 1)) * score).toFixed(0)} sats ⚡</p>
+          {isAnswered && currentQuestion !== lengthQuiz && 
+            <button onClick={handleNextQuestion} style={{ height: 60, width: 350, padding: 5  }}>
+              Próxima Pergunta
+            </button>
+          }
+          <p>Prêmio Acumulado {valuePerAnswer && score ? valuePerAnswer * score: 0} sats ⚡</p>
         </div>
       </div>
     </div>
