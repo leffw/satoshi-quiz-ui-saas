@@ -59,8 +59,7 @@ const RewardScreen = () => {
         </a>
 
         <p style={{width: "50%"}}>
-          Escaneie O QRCode com sua 
-          Carteira Lightning!
+          Escaneie o QRCode com sua Carteira Lightning!
         </p>
       </div>
     </div>

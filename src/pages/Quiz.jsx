@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { CaretRight } from "@phosphor-icons/react";
 import Backend from '../lib/backend';
 
 const Quiz = () => {
@@ -55,7 +54,7 @@ const Quiz = () => {
       setTopic(data.data.topic);
       setQuizData(data.data.quizzes);
       setTotalValueQuiz(data.data.prize);
-      setValuePerAnswer(data.data.prize / data.data.quizzes.length);
+      setValuePerAnswer((data.data.prize / data.data.quizzes.length).toFixed(0));
     });
   }, [id]);
 
@@ -90,8 +89,8 @@ const Quiz = () => {
             {topic}
           </h2>
           <p>
-            Atenção! Você só pode fazer este quiz apenas uma vez responda 
-            com atenção, e no final você recebera uma recompensa.
+            Chegou a hora do quizz para reforçar o seu aprendizado! Responda com atenção, pois você 
+            poderá fazer esse quizz apenas uma vez. Bora lá?
           </p>
           <button 
             style={{ 
@@ -101,7 +100,7 @@ const Quiz = () => {
               background: "none", 
               color: "white", 
               fontWeight: "bold",
-              justifyContent: "space-between",
+              justifyContent: "center",
               border: '1px solid white',
               alignItems: "center", 
               gap: 15,
@@ -109,7 +108,7 @@ const Quiz = () => {
             onClick={() => {
               setIsStart(true);
           }}> 
-            Iniciar Quiz <CaretRight size={22} weight="bold" />
+            Iniciar Quiz
           </button>
         </div>
       </div>
@@ -164,8 +163,7 @@ const Quiz = () => {
                 ...buttonStyle,
                 backgroundColor:
                   (answer) ? (option === quizData[currentQuestion].answer ? colorButtonCorrectAnswer : colorBUttonWrongAnswer) : colorButton,
-                  height: 70,
-                  maxHeight: 90,
+                  padding: 15,
                   background: "none",
                   border: '1px solid white',
                   fontSize: 14
@@ -194,7 +192,8 @@ const Quiz = () => {
           )}
           {score === 0 && isAnswered && isCorrectAnswer === false && currentQuestion === lengthQuiz && (
             <p style={{width: "50%"}}>
-              Você respondeu incorretamente a todas as perguntas do quiz!
+              Dessa vez você não acertou nenhuma resposta. Foque nos estudos para melhorar 
+              no próximo quizz!
             </p>
           )}
           {isAnswered && currentQuestion !== lengthQuiz && 

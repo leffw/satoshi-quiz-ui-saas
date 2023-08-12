@@ -22,9 +22,11 @@ const CreateQuiz = () => {
   };
 
   const handleOptionChange = (index, value) => {
-    const updatedOptions = [...options];
-    updatedOptions[index] = value;
-    setOptions(updatedOptions);
+    if (value.length <= 132) {
+      const updatedOptions = [...options];
+      updatedOptions[index] = value;
+      setOptions(updatedOptions);
+    }
   };
 
   const handleAddQuiz = () => {
