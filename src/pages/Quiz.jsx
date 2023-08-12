@@ -164,7 +164,7 @@ const Quiz = () => {
                 ...buttonStyle,
                 backgroundColor:
                   (answer) ? (option === quizData[currentQuestion].answer ? colorButtonCorrectAnswer : colorBUttonWrongAnswer) : colorButton,
-                  height: 80,
+                  height: 70,
                   maxHeight: 90,
                   background: "none",
                   border: '1px solid white',
